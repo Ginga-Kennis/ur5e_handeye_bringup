@@ -11,7 +11,7 @@
     <include file="$(find tcp_frame_moveit_config)/launch/moveit_planning_execution.launch" />
 
     <!-- d415 driver -->
-    <include file="$(find ur5e_handeye_bringup)/launch/inc/d415_bringup.launch" />
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
 
     <node pkg="tf2_ros" type="static_transform_publisher" name="ur5e_gripper_broadcaster" args="0.014 0 0 -0.7071055, -0.0000328, -0.7071081, 0.0000328 gripper-coupler robotiq_arg2f_base_link" />
 
