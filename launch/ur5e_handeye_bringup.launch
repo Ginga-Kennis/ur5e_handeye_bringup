@@ -1,4 +1,6 @@
 <launch>
+    <arg name="rviz" default="false" />
+
     <!-- gripper driver -->
     <group ns="gripper">
         <include file="$(find robotiq_2f_gripper_control)/launch/robotiq_140_bringup.launch" />
@@ -11,9 +13,15 @@
     <include file="$(find tcp_frame_moveit_config)/launch/moveit_planning_execution.launch" />
 
     <!-- d415 driver -->
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch" >
+        <arg name="enable_pointcloud" value="true" />
+        <arg name="publish_tf" value="true" />
+    </include>
 
     <node pkg="tf2_ros" type="static_transform_publisher" name="ur5e_gripper_broadcaster" args="0.014 0 0 -0.7071055, -0.0000328, -0.7071081, 0.0000328 gripper-coupler robotiq_arg2f_base_link" />
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ur5e_handeye_bringup)/cfg/ur5e_handeye.rviz" required="true" />
+    <group if="$(arg rviz)">
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ur5e_handeye_bringup)/cfg/ur5e_handeye.rviz" required="true" />
+    </group>
+    
 </launch>
